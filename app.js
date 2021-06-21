@@ -28,6 +28,11 @@ mongoose
   })
   .then(() => console.log("DB Connected"));
 
+// for pinging server
+app.get("/", (req, res) => {
+  res.send("easymart.online server is up and listening!");
+});
+
 // middlewares
 app.use(morgan("dev"));
 app.use(bodyParser.json());
