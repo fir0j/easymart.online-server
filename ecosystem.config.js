@@ -1,7 +1,7 @@
 module.exports = {
   apps: [{
     name: 'easymart-server',
-    script: './index.js'
+    script: './app.js'
   }],
   deploy: {
     production: {
