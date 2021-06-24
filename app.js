@@ -1,4 +1,7 @@
 const express = require("express");
+// const http = require("http");
+const https = require("https");
+const fs = require("fs");
 const mongoose = require("mongoose");
 require("dotenv").config();
 const morgan = require("morgan");
@@ -49,8 +52,22 @@ app.use("/api", productRoutes);
 app.use("/api", braintreeRoutes);
 app.use("/api", orderRoutes);
 
-const port = process.env.PORT || 8000;
+// const httpPort = process.env.HTTP_PORT || 7000;
+const httpsPort = process.env.HTTPS_PORT || 8000;
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+var options = {
+  key: fs.readFileSync("./ssl_certificate/key.pem"),
+  cert: fs.readFileSync("./ssl_certificate/cert.pem"),
+};
+
+// http.createServer(app).listen(httpPort, () => {
+//   console.log(`Server is running on port ${httpPort}`);
+// });
+
+https.createServer(options, app).listen(httpsPort, () => {
+  console.log(`Server is running on port ${httpsPort}`);
 });
+
+// app.listen(port, () => {
+//   console.log(`Server is running on port ${port}`);
+// });
